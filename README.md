@@ -31,9 +31,9 @@ This can best be represented by the following schematic workflow diagram:
 
 The workflow involves three main steps:
 
-[Read in the file.]()
-[Process &/or Transform the CSV file into a dictionary format aligned with the BigQuery table schema.]()
-[Write the data to BigQuery.]()
+1. [Read in the file.]()
+2, [Process &/or Transform the CSV file into a dictionary format aligned with the BigQuery table schema.]()
+3. [Write the data to BigQuery.]()
 
 ### Read data in from the file.
 
@@ -48,7 +48,7 @@ This allows larger file sizes and large number of input files to scale well with
 
 This is the stage of the code where a custom logic is put because each file is unique and requires custom business logic. In this exercise we are simply processing each row of the data and transforming from a CSV format into a python dictionary aligned with the destination BigQuery table. The dictionary maps column names to the values we want to store in BigQuery.
 
-Write the data to BigQuery.
+### Write the data to BigQuery.
 ![Output](https://github.com/elkayvee/dataflow/blob/master/images/output_to_bigquery.png)
 
 Passing the table name and a few other optional arguments into BigQueryIO sets up the final stage of the pipeline.
