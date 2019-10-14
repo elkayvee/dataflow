@@ -31,7 +31,7 @@ The script [dataflow_file.py](https://github.com/elkayvee/dataflow/blob/master/d
 
 ## Dataflow job
 
-This can best be represented by the following schematic workflow diagram:
+The workflow in [airbnb.py]() can best be represented by the following schematic workflow diagram:
 ![Dataflow Pipeline Workflow](https://github.com/elkayvee/dataflow/blob/master/images/csv_file_to_bigquery.png)
 
 The workflow involves three main steps:
