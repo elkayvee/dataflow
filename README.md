@@ -71,7 +71,7 @@ _gcs bucket on the instance:_
 
 _dataflow job on the instance:_
 
-![Dataflow](https://github.com/elkayvee/dataflow/blob/master/images/dataflow%20job.png)
+![Dataflow](https://github.com/elkayvee/dataflow/blob/master/images/dataflow%20%20job.png)
 
 
 _dataflow job status on the instance:_
