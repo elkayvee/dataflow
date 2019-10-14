@@ -11,6 +11,8 @@ Before embarking on the dataflow job, a pre-requisite is to enable the relevant 
 
 The datafile from the link is unzipped and stored on the BUCKET (created expressly for this exercise - _[springml-airbnb]()_) as raw data file. 
 
+## Our Approach:
+
 ## EDA & Data Preparation:
 
 A cursory EDA of the raw datafile reveals there are **48,895** records and **16** columns with one or more having missing values in several records. The header line of the raw data file is represented in the BigQuery schema below:
@@ -20,9 +22,9 @@ A cursory EDA of the raw datafile reveals there are **48,895** records and **16*
 #### Data-wrangling challenges and solution:
 
 Raw data presents a few problematic data-wrangling challenges:
-. a) The second column (_name_) is essentially multi-line string with one or more newline (_'\n'_) and CR (_'\r'_) characters and potentially with multiple comma puncutations. A typical csv used a double-quote enclosure to isolate a text field but the _apache_beam.io.ReadFromText_ breaks it into multi-records causing the data to be messed up in the dataflow ingestion step. This must be addressed beofre the historical data is ingested through the pipeline
-. b) The presence of double-quotes (viz., "Central Park") within the double-quotes that the csv file uses as an enclosure of the multiple commas within the string 
-. c) The program that generated this raw data file most likely used non-unicode (most likely _'utf-8'_) encoding but the current dataflow uses python 2.7. This gives rise to codec encoding error when processing non-ASCII characters.
+1. The second column (_name_) is essentially multi-line string with one or more newline (_'\n'_) and CR (_'\r'_) characters and potentially with multiple comma puncutations. A typical csv used a double-quote enclosure to isolate a text field but the _apache_beam.io.ReadFromText_ breaks it into multi-records causing the data to be messed up in the dataflow ingestion step. This must be addressed beofre the historical data is ingested through the pipeline
+2. The presence of double-quotes (viz., "Central Park") within the double-quotes that the csv file uses as an enclosure of the multiple commas within the string 
+3. The program that generated this raw data file most likely used non-unicode (most likely _'utf-8'_) encoding but the current dataflow uses python 2.7. This gives rise to codec encoding error when processing non-ASCII characters.
 
 
 The script [dataflow_file.py](https://github.com/elkayvee/dataflow/blob/master/dataflow_file.py) addresses these precise challenges by reading pandas read_csv function, deleting the potential one or more _'\n'_ and _'\r'_ characters within the dataframe column _name_, replacing the missing numerical values (_NaN_) with _0_ and filling the missing strings fields with blanks. It then uses unix utility _sed_ to delete non-ASCII characters from the text _in-place_. As a matter of abundant pre-caution, it also changes the delimiter to _'\t'_ when writing the file lest the presence of one or more commas mess up the text within the 'name' field. It then saves the new file using 'to_csv' utility with ".txt" extension and stores it on the bucket as a new file. It is consistent with the best practice to have the original data be available. Hence the choice to write it as a separate file. Now the data is ready to be ingested.
@@ -77,7 +79,8 @@ _dataflow job status on the instance:_
 ![Job Status](https://github.com/elkayvee/dataflow/blob/master/images/dataflow%20job%20status.png)
 
 
-bigquery output:
+_bigquery output on the instance_
+:
 ![BigQuery SQL output for raw data](https://github.com/elkayvee/dataflow/blob/master/images/bq%20airbnb%20query%20output.png)
 ![BigQuery SQL output for neighbourhood listing:](https://github.com/elkayvee/dataflow/blob/master/images/bq%20airbnbsummary%20query%20output.png)
 
