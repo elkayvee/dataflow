@@ -32,7 +32,7 @@ This can best be represented by the following schematic workflow diagram:
 The workflow involves three main steps:
 
 1. [Read in the file.]()
-2, [Process &/or Transform the CSV file into a dictionary format aligned with the BigQuery table schema.]()
+2. [Process &/or Transform the CSV file into a dictionary format aligned with the BigQuery table schema.]()
 3. [Write the data to BigQuery.]()
 
 ### Read data in from the file.
@@ -59,4 +59,16 @@ This stage of the pipeline is typically referred to as our sink. The sink is the
 
 The results of the exercise, along with the screenshots of the google cloud instance are included as follows:
 
+gcs bucket:
+![Google Storage Bucket](https://github.com/elkayvee/dataflow/blob/master/images/gcs%20bucket.png)
+
+dataflow job:
+![Dataflow](https://github.com/elkayvee/dataflow/blob/master/images/dataflow%20job.png)
+
+dataflow job status:
+![Job Status](https://github.com/elkayvee/dataflow/blob/master/images/dataflow%20job%20status.png)
+
+bigquery output:
+![BigQuery SQL output for raw data](https://github.com/elkayvee/dataflow/blob/master/images/bq%20airbnb%20query%20output.png)
+![BigQuery SQL output for neighbourhood listing:](https://github.com/elkayvee/dataflow/blob/master/images/bq%20airbnbsummary%20query%20output.png)
 
